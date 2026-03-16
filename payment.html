@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - GildedSMP Store</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --accent: #0066ff;
+      --accent-light: #0080ff;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .checkout-container {
+      background: #1a1a1a;
+      border-radius: 24px;
+      padding: 2.5rem;
+      max-width: 800px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #0066ff, #0080ff);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      border: 2px solid #0066ff;
+      flex-shrink: 0;
+    }
+
+    .header-title h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .header-title p {
+      margin: 0.25rem 0 0 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .currency-btn {
+      padding: 0.6rem 1.2rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 200ms ease;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .currency-btn:hover {
+      background: var(--accent-light);
+    }
+
+    .currency-dropdown {
+      padding: 0.6rem 1.2rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 200ms ease;
+      font-size: 0.9rem;
+      appearance: none;
+      padding-right: 2rem;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.7rem center;
+      background-size: 1.5em 1.5em;
+      padding-right: 2.5rem;
+    }
+
+    .currency-dropdown:hover {
+      background-color: var(--accent-light);
+    }
+
+    .currency-dropdown option {
+      background: #1a1a1a;
+      color: white;
+    }
+
+    .account-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .account-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .account-avatar {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #a855f7, #7c3aed);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      flex-shrink: 0;
+      overflow: hidden;
+      color: white;
+    }
+
+    .account-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .account-details p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .account-details p.username {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 0.25rem;
+    }
+
+    .switch-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 200ms ease;
+    }
+
+    .switch-link:hover {
+      color: var(--accent-light);
+    }
+
+    .items-table {
+      margin-bottom: 2rem;
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .item-name {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .item-price {
+      color: var(--text-muted);
+    }
+
+    .quantity-input {
+      width: 50px;
+      padding: 0.5rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 200ms ease;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .action-btn.refresh {
+      background: #2a2a2a;
+      color: var(--text);
+    }
+
+    .action-btn.refresh:hover {
+      background: #3a3a3a;
+    }
+
+    .action-btn.info {
+      background: var(--accent);
+      color: white;
+    }
+
+    .action-btn.info:hover {
+      background: var(--accent-light);
+    }
+
+    .action-btn.remove {
+      background: #dc2626;
+      color: white;
+    }
+
+    .action-btn.remove:hover {
+      background: #b91c1c;
+    }
+
+    .proceed-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 200ms ease;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    .proceed-btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .checkout-container {
+        padding: 1.5rem;
+      }
+
+      .header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .table-header,
+      .table-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+
+      .action-buttons {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <div class="header">
+      <div class="header-left">
+        <div class="logo-icon">🔑</div>
+        <div class="header-title">
+          <h1>Checkout</h1>
+          <p id="totalText">Total: $0.00 USD</p>
+        </div>
+      </div>
+      <select class="currency-dropdown" id="currencySelect" onchange="changeCurrency()">
+        <option value="USD">💵 USD</option>
+        <option value="EUR">€ EUR</option>
+        <option value="GBP">£ GBP</option>
+        <option value="CAD">C$ CAD</option>
+        <option value="AUD">A$ AUD</option>
+        <option value="JPY">¥ JPY</option>
+      </select>
+    </div>
+
+    <div class="account-section">
+      <div class="account-info">
+        <div class="account-avatar" id="avatar">👤</div>
+        <div class="account-details">
+          <p>You are currently signed in as</p>
+          <p class="username" id="username">Username</p>
+        </div>
+      </div>
+      <a href="checkout.html" class="switch-link">Switch Accounts</a>
+    </div>
+
+    <div class="items-table">
+      <div class="table-header">
+        <div>Name</div>
+        <div>Price</div>
+        <div>Quantity</div>
+        <div></div>
+      </div>
+
+      <div class="table-row">
+        <div class="item-name" id="itemName">Item</div>
+        <div class="item-price" id="itemPrice">$0.00 USD</div>
+        <input type="number" class="quantity-input" id="quantity" value="1" min="1" onchange="updateTotal()" />
+        <div class="action-buttons">
+          <button class="action-btn refresh" title="Refresh">🔄</button>
+          <button class="action-btn info" title="Info">ℹ️</button>
+          <button class="action-btn remove" title="Remove" onclick="removeItem()">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="proceed-btn" onclick="proceedToPayment()">Proceed to checkout »</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get('username') || 'Player';
+    const itemName = params.get('item') || 'Item';
+    const itemPrice = params.get('price') || '0.00';
+    const platform = params.get('platform') || 'java';
+
+    let currentCurrency = 'USD';
+    const exchangeRates = {
+      'USD': 1,
+      'EUR': 0.92,
+      'GBP': 0.79,
+      'CAD': 1.36,
+      'AUD': 1.53,
+      'JPY': 149.50
+    };
+
+    document.getElementById('username').textContent = username;
+    document.getElementById('itemName').textContent = itemName;
+    updatePriceDisplay();
+
+    const avatarEl = document.getElementById('avatar');
+
+    if (platform === 'bedrock') {
+      const colors = ['#a855f7', '#0066ff', '#ec4899', '#f59e0b'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      avatarEl.style.background = 'linear-gradient(135deg, ' + randomColor + ', ' + randomColor + 'cc)';
+      avatarEl.textContent = username.charAt(0).toUpperCase();
+    } else {
+      const avatarUrls = [
+        'https://mc-heads.net/avatar/' + username + '/64',
+        'https://crafatar.com/avatars/' + username + '?size=64&overlay',
+        'https://minotar.net/avatar/' + username + '/64'
+      ];
+      
+      let currentUrlIndex = 0;
+      
+      function loadAvatar() {
+        if (currentUrlIndex >= avatarUrls.length) {
+          avatarEl.textContent = '👤';
+          return;
+        }
+        
+        const img = document.createElement('img');
+        img.src = avatarUrls[currentUrlIndex];
+        img.alt = username;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        
+        img.onerror = function() {
+          currentUrlIndex++;
+          loadAvatar();
+        };
+        
+        img.onload = function() {
+          avatarEl.innerHTML = '';
+          avatarEl.appendChild(img);
+        };
+        
+        avatarEl.innerHTML = '';
+        avatarEl.appendChild(img);
+      }
+      
+      loadAvatar();
+    }
+
+    function updatePriceDisplay() {
+      const basePrice = parseFloat(itemPrice);
+      const convertedPrice = (basePrice * exchangeRates[currentCurrency]).toFixed(2);
+      document.getElementById('itemPrice').textContent = getCurrencySymbol(currentCurrency) + convertedPrice + ' ' + currentCurrency;
+      updateTotal();
+    }
+
+    function getCurrencySymbol(currency) {
+      const symbols = {
+        'USD': '$',
+        'EUR': '€',
+        'GBP': '£',
+        'CAD': 'C$',
+        'AUD': 'A$',
+        'JPY': '¥'
+      };
+      return symbols[currency] || '$';
+    }
+
+    function updateTotal() {
+      const qty = parseInt(document.getElementById('quantity').value) || 1;
+      const basePrice = parseFloat(itemPrice);
+      const convertedPrice = basePrice * exchangeRates[currentCurrency];
+      const total = (convertedPrice * qty).toFixed(2);
+      document.getElementById('totalText').textContent = 'Total: ' + getCurrencySymbol(currentCurrency) + total + ' ' + currentCurrency;
+    }
+
+    function changeCurrency() {
+      currentCurrency = document.getElementById('currencySelect').value;
+      updatePriceDisplay();
+    }
+
+    document.querySelector('.currency-dropdown').addEventListener('change', changeCurrency);
+
+    function removeItem() {
+      window.location.href = 'checkout.html';
+    }
+
+    function proceedToPayment() {
+      const qty = parseInt(document.getElementById('quantity').value) || 1;
+      const basePrice = parseFloat(itemPrice);
+      const convertedPrice = (basePrice * exchangeRates[currentCurrency] * qty).toFixed(2);
+      alert('Payment processing for ' + qty + 'x ' + itemName + ' = ' + getCurrencySymbol(currentCurrency) + convertedPrice + ' ' + currentCurrency);
+    }
+  </script>
+</body>
+</html>

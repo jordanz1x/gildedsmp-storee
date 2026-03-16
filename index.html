@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GildedSMP - Minecraft Server</title>
+  <style>
+    :root {
+      --bg: #111111;
+      --accent: #0066ff;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      max-width: 1250px;
+      width: 100%;
+      padding: 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 240px 1fr 300px;
+      gap: 1.6rem;
+      align-items: stretch;
+    }
+    /* Common card styles for top row consistency */
+    .top-card {
+      background: #1a1a1a;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 200ms ease;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .top-card:hover {
+      transform: translateY(-6px);
+    }
+    .top-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Label overlay for Store & Stats */
+    .label-overlay {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(0,0,0,0.65);
+      color: white;
+      font-weight: bold;
+      font-size: 1.4rem;
+      padding: 8px 16px;
+      border-radius: 10px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    /* Discord Card - now matches top-card sizing better */
+    .discord-card {
+      background: #1a1a1a;
+      border-radius: 20px;
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: transform 200ms ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .discord-card:hover {
+      transform: translateY(-6px);
+    }
+    .discord-icon {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 1.2rem;
+    }
+    .discord-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 20px rgba(88, 101, 242, 0.6));
+    }
+    .discord-stats {
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin: 0.6rem 0 0.3rem;
+    }
+    .discord-label {
+      color: #5865f2;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .discord-label::before {
+      content: "●";
+      color: #43b581;
+    }
+    /* Bottom Row */
+    .bottom-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6rem;
+      margin-top: 1.6rem;
+    }
+    /* Stats Card */
+    .stats-card {
+      background: #1a1a1a;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .stats-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.75);
+    }
+    .coming-soon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      color: #ffcc00;
+      font-size: 1.4rem;
+      font-weight: 800;
+      padding: 12px 32px;
+      border-radius: 12px;
+      text-align: center;
+      border: 3px solid #ffcc00;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+    }
+    /* How To Join - Medal.tv Embed */
+    .howto-card {
+      background: #1a1a1a;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 1.2rem;
+    }
+    .howto-card h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .video-wrapper {
+      position: relative;
+      padding-top: 56.25%; /* 16:9 */
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    @media (max-width: 1200px) {
+      .grid { grid-template-columns: 220px 1fr 280px; }
+    }
+    @media (max-width: 900px) {
+      .grid, .bottom-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="grid">
+      <!-- Gilded Logo -->
+      <div class="top-card gilded-card" onclick="copyIP()">
+        <img src="https://raw.githubusercontent.com/benj4minzzz/gilded-images/refs/heads/main/gilded.jpg" alt="GildedSMP" />
+      </div>
+
+      <!-- Store -->
+      <div class="top-card store-card" onclick="goToStore()">
+        <img src="https://website.donutsmp.org/store.png" alt="Store" />
+        <div class="label-overlay">Store</div>
+      </div>
+
+      <!-- Discord -->
+      <div class="discord-card" onclick="goToDiscord()">
+        <div class="discord-icon">
+          <img src="https://website.donutsmp.org/discord.png" alt="Discord" />
+        </div>
+        <div class="discord-stats">50+</div>
+        <div class="discord-label">Discord Members</div>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="bottom-row">
+      <!-- Stats Card -->
+      <div class="stats-card">
+        <img src="https://website.donutsmp.org/stats.png" alt="Stats" />
+        <div class="label-overlay">Stats</div>
+        <div class="coming-soon">COMING SOON</div>
+      </div>
+
+      <!-- How To Join - Medal.tv Embed -->
+      <div class="howto-card">
+        <h3>How To Join</h3>
+        <div class="video-wrapper">
+          <iframe 
+            src="https://medal.tv/clip/mjt725AqUlWQ2ck0R?autoplay=0&muted=0&loop=0" 
+            frameborder="0" 
+            allow="autoplay" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goToStore() {
+      window.location.href = 'gilded.html';
+    }
+    function goToDiscord() {
+      window.location.href = 'https://discord.gg/Wm9DQJAkVd';
+    }
+    function copyIP() {
+      navigator.clipboard.writeText("publication-ministries.gl.joinmc.link").then(() => {
+        alert("✅ IP copied to clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>

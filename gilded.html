@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GildedSMP Store</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --accent: #0066ff;
+      --accent-light: #0080ff;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+      --card-bg: #1a1a1a;
+      --radius: 16px;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      color: var(--text);
+      font-family: var(--font);
+      background: var(--bg);
+      padding: 2rem 1rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .featured {
+      background: linear-gradient(135deg, #0066ff, #0080ff);
+      border-radius: 24px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .featured-content h2 {
+      margin: 0 0 0.25rem 0;
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+    .featured-content .subtitle {
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+    .featured-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      font-weight: 500;
+    }
+    .featured-image img {
+      max-width: 100%;
+      height: auto;
+      max-height: 280px;
+      border-radius: 12px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .product {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 102, 255, 0.15);
+    }
+    .product-image {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      background: transparent;
+    }
+    .product-image img {
+      max-height: 200px;
+      width: auto;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+    }
+    .product h3 {
+      margin: 0 0 0.4rem 0;
+      font-size: 1.7rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .product .price {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #b0b0b0;
+      margin-bottom: 0.8rem;
+      text-align: center;
+    }
+    .qty-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.4rem;
+      margin-bottom: 0.8rem;
+    }
+    .qty-buttons button {
+      padding: 0.5rem;
+      background: #2a2a2a;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+    .qty-buttons button:first-child {
+      background: var(--accent);
+    }
+    .qty-buttons button:hover {
+      transform: translateY(-2px);
+    }
+    .add-cart {
+      width: 100%;
+      padding: 0.65rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 200ms ease;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+    .add-cart:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+    .badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.35rem 0.7rem;
+      background: #ff6b35;
+      color: white;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 1024px) {
+      .products { grid-template-columns: repeat(2, 1fr); }
+      .featured { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .products { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="featured">
+      <div class="featured-content">
+        <h2>Gilded+ Rank</h2>
+        <ul>
+          <li>+3 Homes</li>
+          <li>+/hide (scrambles username)</li>
+          <li>+/fly in lobbies</li>
+          <li>+Faster Auction Buying (/settings)</li>
+          <li>+Get shards everywhere</li>
+          <li>+Shorter /RTP Cooldown</li>
+          <li>+Priority Queue</li>
+        </ul>
+      </div>
+      <div class="featured-image">
+        <img src="https://dunb17ur4ymx4.cloudfront.net/packages/images/2df9258a8aae6a76e3ac874ccb496cf7daa50713.png" alt="Gilded+ Rank" />
+      </div>
+    </section>
+
+    <section id="products" class="products">
+      <!-- Common Key -->
+      <article class="product">
+        <div class="product-image">
+          <img src="https://dunb17ur4ymx4.cloudfront.net/packages/images/2df9258a8aae6a76e3ac874ccb496cf7daa50713.png" alt="Common Key" />
+        </div>
+        <h3>Common</h3>
+        <div class="price">$0.49</div>
+        <div class="qty-buttons">
+          <button type="button">1x</button>
+          <button type="button">5x</button>
+          <button type="button">10x</button>
+          <button type="button">20x</button>
+        </div>
+        <button class="add-cart" onclick="goCheckout('Common', 0.49)">🛒 Add to Cart</button>
+      </article>
+
+      <!-- Amethyst Key -->
+      <article class="product" style="position: relative;">
+        <div class="badge">Most Popular</div>
+        <div class="product-image">
+          <img src="https://dunb17ur4ymx4.cloudfront.net/packages/images/aec8afc44a647e0777f136a2e368fe5cf4664a75.png" alt="Amethyst Key" />
+        </div>
+        <h3>Amethyst</h3>
+        <div class="price">$1.60</div>
+        <div class="qty-buttons">
+          <button type="button">1x</button>
+          <button type="button">5x</button>
+          <button type="button">10x</button>
+          <button type="button">20x</button>
+        </div>
+        <button class="add-cart" onclick="goCheckout('Amethyst', 1.60)">🛒 Add to Cart</button>
+      </article>
+
+      <!-- Crimson Key -->
+      <article class="product">
+        <div class="product-image">
+          <img src="https://dunb17ur4ymx4.cloudfront.net/packages/images/241c3a19c2e9fa1a59e6b4f358ba0300ba606aed.png" alt="Crimson Key" />
+        </div>
+        <h3>Crimson</h3>
+        <div class="price">$1.00</div>
+        <div class="qty-buttons">
+          <button type="button">1x</button>
+          <button type="button">5x</button>
+          <button type="button">10x</button>
+          <button type="button">20x</button>
+        </div>
+        <button class="add-cart" onclick="goCheckout('Crimson', 1.00)">🛒 Add to Cart</button>
+      </article>
+    </section>
+  </div>
+
+  <script>
+    const productPrices = {
+      'Common': 0.49,
+      'Amethyst': 1.60,
+      'Crimson': 1.00
+    };
+
+    function goCheckout(item, basePrice) {
+      const product = event.target.closest('.product');
+      const quantity = parseInt(product.dataset.quantity) || 1;
+      const totalPrice = (basePrice * quantity).toFixed(2);
+      
+      window.location.href = `checkout.html?item=${encodeURIComponent(item)}&price=${totalPrice}&quantity=${quantity}`;
+    }
+
+    function setQuantity(button) {
+      const parent = button.closest('.product');
+      const qtyButtons = parent.querySelectorAll('.qty-buttons button');
+      const priceElement = parent.querySelector('.price');
+      const itemName = parent.querySelector('h3').textContent;
+      const basePrice = productPrices[itemName];
+      const quantity = parseInt(button.textContent);
+
+      qtyButtons.forEach(btn => btn.style.background = '#2a2a2a');
+      button.style.background = 'var(--accent)';
+
+      const totalPrice = (basePrice * quantity).toFixed(2);
+      priceElement.textContent = '$' + totalPrice;
+      parent.dataset.quantity = quantity;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.product').forEach(product => {
+        product.dataset.quantity = 1;
+        const qtyButtons = product.querySelectorAll('.qty-buttons button');
+        
+        qtyButtons.forEach((btn, index) => {
+          if (index === 0) btn.style.background = 'var(--accent)';
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            setQuantity(this);
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
